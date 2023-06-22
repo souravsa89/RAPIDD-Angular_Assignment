@@ -20,7 +20,11 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent implements OnInit {
   title = 'Employee-details';
   data: any = [];
-  employeeTotalTimes: any = []; // Array to store total time for each employee
+  employeeTotalTimes: any = [];
+  currentPage = 1;
+  pageSize = 20;
+  totalPages = 0;
+  pagedEmployees: any[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -29,8 +33,8 @@ export class AppComponent implements OnInit {
       'https://rc-vault-fap-live-1.azurewebsites.net/api/gettimeentries?code=vO17RnE8vuzXzPJo5eaLLjXjmRW07law99QTD90zat9FfOQJKKUcgQ==';
     this.http.get(url).subscribe((res: any) => {
       this.data = res;
-      console.log(this.data);
       this.calculateTotalTimes();
+      this.calculatePagination();
     });
   }
 
@@ -41,14 +45,11 @@ export class AppComponent implements OnInit {
 
       const timeDiff = endTime.getTime() - startTime.getTime();
 
-      // Calculate hours, minutes, and seconds
       const hours = Math.floor(timeDiff / (1000 * 60 * 60));
       const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-      // Format the total time
       const totalTime = `${hours}h ${minutes}m ${seconds}s`;
-      console.log(totalTime)
 
       return {
         ...employee,
@@ -56,6 +57,7 @@ export class AppComponent implements OnInit {
       };
     });
   }
+
 
   isLessThan100Hours(totalTime: string): boolean {
     const hoursRegex = /\d+h/;
@@ -70,8 +72,35 @@ export class AppComponent implements OnInit {
   }
   
 
+  calculatePagination() {
+    this.totalPages = Math.ceil(this.employeeTotalTimes.length / this.pageSize);
+    this.currentPage = 1;
+    this.updatePagedEmployees();
+  }
+
+  updatePagedEmployees() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedEmployees = this.employeeTotalTimes.slice(startIndex, endIndex);
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagedEmployees();
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagedEmployees();
+    }
+  }
+
   ngOnInit() {
     this.getData();
   }
 }
+
 

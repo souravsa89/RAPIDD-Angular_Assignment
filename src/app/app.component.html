@@ -1,25 +1,21 @@
-<!-- <h1>Employee Table</h1>
-<router-outlet></router-outlet> -->
-<div style="text-align: center">
-  <div style="padding: 5px">
-    <h1>Welcome to --!</h1>
-    <button (click)="getData()">Fetch Data</button>
-  </div>
+<h1>{{ title }}</h1>
+<table class="employee-table">
+  <thead>
+    <tr>
+      <th>Employee Name</th>
+      <th>Total Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of pagedEmployees" [ngClass]="{ 'less-than-100': isLessThan100Hours(employee.totalTime) }">
+      <td>{{ employee.EmployeeName }}</td>
+      <td>{{ employee.totalTime }}</td>
+    </tr>
+  </tbody>
+</table>
 
-  <table class="center">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Total Time Worked</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-      *ngFor="let employee of employeeTotalTimes" [ngClass]="{ 'highlight-row': isLessThan100Hours(employee.totalTime) }"
-      >
-        <td style="padding: 5px">{{ employee.EmployeeName }}</td>
-        <td style="margin: 5px">{{ employee.totalTime }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="pagination">
+  <button [disabled]="currentPage === 1" (click)="previousPage()">Previous</button>
+  <span>{{ currentPage }}</span>
+  <button [disabled]="currentPage === totalPages" (click)="nextPage()">Next</button>
 </div>
