@@ -1,0 +1,50 @@
+.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .employee-table {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+    border: 2px grey solid;
+    border-radius: 10%;
+  }
+  
+  .employee-table th,
+  .employee-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .employee-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .employee-table tr.less-than-100 {
+    background-color: #ffdddd;
+  }
+  
+  .pagination {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .pagination button {
+    padding: 8px 16px;
+    margin-right: 5px;
+  }
+  
+  .pagination span {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  .h1{
+    margin-left: auto;
+    margin-right: auto;
+  }
+  

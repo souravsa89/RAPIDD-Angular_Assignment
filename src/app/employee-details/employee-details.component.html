@@ -1,0 +1,28 @@
+
+<table class="employee-table">
+    <thead>
+      <tr>
+        <th>Employee Name</th>
+        <th>Total Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let employee of pagedEmployees"
+        [ngClass]="{ 'less-than-100': isLessThan100Hours(employee.totalTime) }"
+      >
+        <td>{{ employee.EmployeeName }}</td>
+        <td>{{ employee.totalTime }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div class="pagination">
+    <button [disabled]="currentPage === 1" (click)="previousPage()">
+      Previous
+    </button>
+    <span>{{ currentPage }}</span>
+    <button [disabled]="currentPage === totalPages" (click)="nextPage()">
+      Next
+    </button>
+  </div>

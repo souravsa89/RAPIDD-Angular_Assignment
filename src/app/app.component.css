@@ -40,3 +40,15 @@
   font-weight: bold;
   margin-right: 5px;
 }
+
+.center{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  text-justify: inter-word;
+}
+
+h1{
+  text-align: justify;
+  margin: auto;
+}
